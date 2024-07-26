@@ -123,7 +123,7 @@ void TicTacToe::gameLogic()
             std::cout << "Enter coordinates of 'X'" << std::endl;
             std::cin >> row_x;
             std::cin >> col_x;
-            if (row_x < 3 && col_x < 3)
+            if ((row_x < 3 && col_x < 3) && (row_x >= 0 && col_x >= 0))
             {
                 if (m_board[row_x][col_x] == '.')
                 {
@@ -161,7 +161,7 @@ void TicTacToe::gameLogic()
             std::cin >> row_0;
             std::cin >> col_0;
 
-            if (row_0 < 3 && col_0 < 3)
+            if ((row_0 < 3 && col_0 < 3) && (row_0 >= 0 && col_0 >= 0))
             {
                 if (m_board[row_0][col_0] == '.')
                 {
