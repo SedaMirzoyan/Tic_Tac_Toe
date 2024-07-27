@@ -115,89 +115,89 @@ void TicTacToe::gameLogic()
     bool flag_0 = false;
     bool stop_game = false;
 
-    try
+    while (!stop_game)
     {
-        while (!stop_game)
+        //for 'X'
+        std::cout << "Enter coordinates of 'X'" << std::endl;
+        std::cin >> row_x;
+        std::cin >> col_x;
+        if ((row_x < 3 && col_x < 3) && (row_x >= 0 && col_x >= 0))
         {
-            //for 'X'
-            std::cout << "Enter coordinates of 'X'" << std::endl;
-            std::cin >> row_x;
-            std::cin >> col_x;
-            if ((row_x < 3 && col_x < 3) && (row_x >= 0 && col_x >= 0))
+            if (m_board[row_x][col_x] == '.')
             {
-                if (m_board[row_x][col_x] == '.')
-                {
-                    m_coordsX.push_back(std::make_pair(row_x, col_x));
-                    m_board[row_x][col_x] = 'X';                  
-                }
-                else
-                {
-                    std::cout << "[" << row_x << "][" << col_x << "] place is not empty\n";
-                    return;
-                }
-                system("cls");
-                printBoard();
-                flag_X = logicForX();
-
-                if (flag_X == true)
-                {
-                    stop_game = true;
-                    break;
-                }
-                //check Draw condition 
-                if (m_coordsX.size() == 5 && stop_game == false)
-                {
-                    std::cout << "\nThe Game ended with Draw\n";
-                    break;
-                }
+                m_coordsX.push_back(std::make_pair(row_x, col_x));
+                m_board[row_x][col_x] = 'X';                  
             }
             else
             {
-                throw std::invalid_argument("Coordinates entered for 'X' are out of range\n");
+                std::cout << "[" << row_x << "][" << col_x << "] place is not empty\n";
+                return;
             }
+            system("cls");
+            printBoard();
+            flag_X = logicForX();
 
-            //for '0'
-            std::cout << "Enter coordinates of '0'" << std::endl;
-            std::cin >> row_0;
-            std::cin >> col_0;
-
-            if ((row_0 < 3 && col_0 < 3) && (row_0 >= 0 && col_0 >= 0))
+            if (flag_X == true)
             {
-                if (m_board[row_0][col_0] == '.')
-                {
-                    m_coords0.push_back(std::make_pair(row_0, col_0));
-                    m_board[row_0][col_0] = '0';
-                }
-                else
-                {
-                    std::cout << "[" << row_0 << "][" << col_0 << "] place is not empty\n";
-                    return;
-                }
-                system("cls");
-                printBoard();
-                flag_0 = logicFor0();
+                stop_game = true;
+                break;
+            }
+            //check Draw condition 
+            if (m_coordsX.size() == 5 && stop_game == false)
+            {
+                std::cout << "\nThe Game ended with Draw\n";
+                break;
+            }
+        }
+        else
+        {
+            throw std::invalid_argument("Coordinates entered for 'X' are out of range\n");
+        }
 
-                if (flag_0 == true)
-                {
-                    stop_game = true;
-                    break;
-                }
+        //for '0'
+        std::cout << "Enter coordinates of '0'" << std::endl;
+        std::cin >> row_0;
+        std::cin >> col_0;
+
+        if ((row_0 < 3 && col_0 < 3) && (row_0 >= 0 && col_0 >= 0))
+        {
+            if (m_board[row_0][col_0] == '.')
+            {
+                m_coords0.push_back(std::make_pair(row_0, col_0));
+                m_board[row_0][col_0] = '0';
             }
             else
             {
-                throw std::invalid_argument("Coordinates entered for '0' are out of range\n");
+                std::cout << "[" << row_0 << "][" << col_0 << "] place is not empty\n";
+                return;
             }
-        }  
+            system("cls");
+            printBoard();
+            flag_0 = logicFor0();
+
+            if (flag_0 == true)
+            {
+                stop_game = true;
+                break;
+            }
+        }
+        else
+        {
+            throw std::invalid_argument("Coordinates entered for '0' are out of range\n");
+        }
+    }  
+}
+
+void TicTacToe::startGame()
+{
+    try 
+    {
+        gameLogic();
     }
     catch (...)
     {
         std::cout << "Please enter valid coordinates\n";
     }
-}
-
-void TicTacToe::startGame()
-{
-    gameLogic();
 }
 
 int main()
